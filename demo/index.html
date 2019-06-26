@@ -1,47 +1,73 @@
 <html>
 <head>
-	<meta charset="utf-8">
+  <meta charset="utf-8">
   <title>cibo wasm</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
-	<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css'>
-	<link rel='stylesheet prefetch' href='https://use.fontawesome.com/releases/v5.0.10/css/all.css'>
+  <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css'>
+  <link rel='stylesheet prefetch' href='https://use.fontawesome.com/releases/v5.0.10/css/all.css'>
 </head>
 <body>
-	<section class="hero">
-			<div class="hero-body">
-				<div class="container">
-					<h1 class="title">
-						Cibo WebAssembly Demo
-					</h1>
-					<h2 class="subtitle">
-						CPU emulator written by Golang
-					</h2>
-				</div>
-			</div>
-		</section>
-	<div class="container">
-		<button onClick="call_emulate();" class="button">Run</button>
-	</div>
-	<footer class="footer">
-		<div class="content has-text-centered">
-		Copyright © 2019 <a href="https://github.com/tkmru"><b>tkmru</b></a>.
-		</div>
-	</footer>
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-	<script src="wasm_exec.js"></script>
-	<script>
-		const go = new Go();
-		WebAssembly.instantiateStreaming(fetch("cibo.wasm"), go.importObject).then((result) => {
-			go.run(result.instance);
-		}).catch((err) => {
-			console.error(err);
-		});
+  <section class="hero is-light">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          Cibo WebAssembly Demo
+        </h1>
+        <h2 class="subtitle">
+          CPU emulator written by Golang
+        </h2>
+      </div>
+    </div>
+  </section>
+  <div class="container">
+    <div class="columns">
+      <div class="column">
+        <section class="section">
+          <div class="content is-small">
+            <h1>X86 ASM:</h1>
+          </div>
+          <div class="field">
+            <div class="control">
+              <textarea class="textarea is-info has-fixed-size" placeholder="Info textarea" rows="15"></textarea>
+            </div>
+          </div>
+          <button onClick="call_emulate();" class="button is-primary">Run</button>
+          <button class="button is-light">Clear</button>
+        </section>
+      </div>
+      <div class="column">
+        <section class="section">
+          <div class="content is-small">
+            <h1>Result:</h1>
+          </div>
+          <div class="control">
+            <textarea class="textarea is-success has-fixed-size" id="result" rows="15" placeholder="" readonly></textarea>
+          </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+  <footer class="footer">
+    <div class="content has-text-centered">
+    Copyright © 2019 <a href="https://github.com/tkmru"><b>tkmru</b></a>.
+    </div>
+  </footer>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="wasm_exec.js"></script>
+  <script>
+    const go = new Go();
+    WebAssembly.instantiateStreaming(fetch("cibo.wasm"), go.importObject).then((result) => {
+      go.run(result.instance);
+    }).catch((err) => {
+      console.error(err);
+    });
 
-		function call_emulate() {
-			ret = emulate();
-			console.log(ret);
-		}
-	</script>
+    function call_emulate() {
+      ret = emulate();
+      console.log(ret);
+    }
+  </script>
 </body>
 
 </html>
