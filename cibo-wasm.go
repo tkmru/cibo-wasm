@@ -2,22 +2,30 @@ package main
 
 import (
 	"github.com/tkmru/cibo/core"
+
+	"encoding/hex"
+	"log"
 	"syscall/js"
 )
 
 func emulate(_ js.Value, args []js.Value) interface{} {
-	/*
-		if len(args) == 0 {
-			return nil
-		}
-	*/
+	if len(args) == 0 {
+		return nil
+	}
+
 	debugFlag := true
 	emu := cibo.NewEmulator(32, 0x7c00, 9, debugFlag)
 	cpu := emu.CPU
 	reg := &cpu.X86registers
 	reg.Init()
+	hexString := args[0].String()
+	insn, err := hex.DecodeString(hexString)
 
-	emu.RAM = []byte{0xB8, 0x01, 0x00, 0x00, 0x00, 0xBB, 0x01, 0x00, 0x00, 0x00, 0x01, 0xD8, 0x05, 0x08, 0x00, 0x00, 0x00}
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	emu.RAM = insn
 	emu.Run()
 	ret := map[string]interface{}{
 		"EAX":    reg.EAX,

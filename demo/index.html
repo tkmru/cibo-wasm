@@ -31,7 +31,7 @@
               <textarea class="textarea is-info has-fixed-size" placeholder="Info textarea" rows="15"></textarea>
             </div>
           </div>
-          <button onClick="call_emulate();" class="button is-primary">Run</button>
+          <button onClick="call_emulate('b8010000003d020000007505e9ef83ffffb8020000003d0200000074ef');" class="button is-primary">Run</button>
           <button class="button is-light">Clear</button>
         </section>
       </div>
@@ -63,8 +63,8 @@
       console.error(err);
     });
 
-    function call_emulate() {
-      ret = emulate();
+    function call_emulate(arg) {
+      ret = emulate(arg);
       console.log(ret);
     }
   </script>
