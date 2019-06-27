@@ -28,11 +28,11 @@
           </div>
           <div class="field">
             <div class="control">
-              <textarea class="textarea is-info has-fixed-size" placeholder="Info textarea" rows="15"></textarea>
+              <textarea class="textarea is-info has-fixed-size" id="asm" placeholder="Info textarea" rows="15"></textarea>
             </div>
           </div>
           <button onClick="call_emulate('b8010000003d020000007505e9ef83ffffb8020000003d0200000074ef');" class="button is-primary">Run</button>
-          <button class="button is-light">Clear</button>
+          <button class="button is-light" id='clear'>Clear</button>
         </section>
       </div>
       <div class="column">
@@ -66,7 +66,36 @@
     function call_emulate(arg) {
       ret = emulate(arg);
       console.log(ret);
+      registers =  'EAX:    0x' + ret['EAX'].toString(16).toUpperCase() + '\n'
+      registers += 'ECX:    0x' + ret['ECX'].toString(16).toUpperCase() + '\n'
+      registers += 'EDX:    0x' + ret['EDX'].toString(16).toUpperCase() + '\n'
+      registers += 'EBX:    0x' + ret['EBX'].toString(16).toUpperCase() + '\n'
+      registers += 'ESP:    0x' + ret['ESP'].toString(16).toUpperCase() + '\n'
+      registers += 'EBP:    0x' + ret['EBP'].toString(16).toUpperCase() + '\n'
+      registers += 'ESI:    0x' + ret['ESI'].toString(16).toUpperCase() + '\n'
+      registers += 'EDI:    0x' + ret['EDI'].toString(16).toUpperCase() + '\n'
+      registers += 'EIP:    0x' + ret['EIP'].toString(16).toUpperCase() + '\n'
+      registers += 'EFLAGS: 0x' + ret['EFLAGS'] + '\n'
+      $('#result').val(registers);
     }
+
+    function clear() {
+      $('#asm').val('');
+
+      registers =  'EAX:    0x0\n'
+      registers += 'ECX:    0x0\n'
+      registers += 'EDX:    0x0\n'
+      registers += 'EBX:    0x0\n'
+      registers += 'ESP:    0x7c04\n'
+      registers += 'EBP:    0x0\n'
+      registers += 'ESI:    0x0\n'
+      registers += 'EDI:    0x0\n'
+      registers += 'EIP:    0x7c00\n'
+      registers += 'EFLAGS: 0x2\n'
+      $('#result').val(registers);
+    }
+
+    $('#clear').click(clear());
   </script>
 </body>
 
