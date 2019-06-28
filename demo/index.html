@@ -2,7 +2,7 @@
 <head>
   <meta charset="utf-8">
   <title>cibo wasm</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+  <link rel="stylesheet prefetch" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
   <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css'>
   <link rel='stylesheet prefetch' href='https://use.fontawesome.com/releases/v5.0.10/css/all.css'>
 </head>
@@ -71,7 +71,7 @@
 
     function call_emulate() {
       // Define where to show errors
-      myError = function(err, line) {
+      const myError = function(err, line) {
         console.log('Error:' + err + ' in line ' + line);
       };
       window.Opcode.error = myError;
@@ -80,11 +80,13 @@
       // Parse assembler code
       const asm = $('#asm').val();
       const hexString = pasm.parse(asm);
+      console.log('x86 ASM CODE:');
       console.log(asm);
+      console.log('x86 binary:');
       console.log(hexString.data);
-      ret = emulate(hexString.data);
+      const ret = emulate(hexString.data);
       console.log(ret);
-      var registers =  'EAX:    0x' + ret['EAX'].toString(16).toUpperCase() + '\n'
+      let registers =  'EAX:    0x' + ret['EAX'].toString(16).toUpperCase() + '\n'
       registers += 'ECX:    0x' + ret['ECX'].toString(16).toUpperCase() + '\n'
       registers += 'EDX:    0x' + ret['EDX'].toString(16).toUpperCase() + '\n'
       registers += 'EBX:    0x' + ret['EBX'].toString(16).toUpperCase() + '\n'
@@ -104,7 +106,7 @@
     });
 
     function initRegisters() {
-      var registers =  'EAX:    0x0\n'
+      let registers =  'EAX:    0x0\n'
       registers += 'ECX:    0x0\n'
       registers += 'EDX:    0x0\n'
       registers += 'EBX:    0x0\n'
