@@ -24,7 +24,7 @@
       <div class="column">
         <section class="section">
           <div class="content is-small">
-            <h1>X86 ASM:</h1>
+            <h1>x86 ASM:</h1>
           </div>
           <div class="field">
             <div class="control">
@@ -65,7 +65,7 @@
     });
 
     $(document).ready(function() {
-      $('#asm').val('mov eax, 0x4');
+      $('#asm').val('mov eax, 0xcafebabe\nmov ecx, 0xdeedbeef\nmov edx, 0xfee1dead\nmov ebx, 0xbadcab1e');
       initRegisters();
     });
 
@@ -79,7 +79,7 @@
 
       // Parse assembler code
       const asm = $('#asm').val();
-      const hexString = pasm.parse(asm);
+      const hexString = pasm.parse('[bits 32]\n' + asm);
       console.log('x86 ASM CODE:');
       console.log(asm);
       console.log('x86 binary:');

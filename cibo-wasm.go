@@ -13,17 +13,18 @@ func emulate(_ js.Value, args []js.Value) interface{} {
 		return nil
 	}
 
-	debugFlag := true
-	emu := cibo.NewEmulator(32, 0x7c00, 9, debugFlag)
-	cpu := emu.CPU
-	reg := &cpu.X86registers
-	reg.Init()
 	hexString := args[0].String()
 	insn, err := hex.DecodeString(hexString)
 
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	debugFlag := true
+	emu := cibo.NewEmulator(32, 0x7c00, int64(len(insn)), debugFlag)
+	cpu := emu.CPU
+	reg := &cpu.X86registers
+	reg.Init()
 
 	emu.RAM = insn
 	emu.Run()
