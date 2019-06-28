@@ -2,6 +2,8 @@
 Demo web page to run [cibo](https://github.com/tkmru/cibo) as WebAssembly on browser.
 `cibo` is cpu emulator written by golang.
 
+Demo Page is [here](https://tkmru.dev/cibo-wasm/demo/).
+
 ## Usage
 Three files in `./demo/` need to be served from a web server. 
 For example, with `goexec`:
